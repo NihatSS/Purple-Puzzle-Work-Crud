@@ -1,0 +1,30 @@
+﻿@model WorkCreateVM
+
+<div class="container mt-5">
+    <h2 class="text-center">Create work</h2>
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <input type="text" asp-for="@Model.Work.Title" class="form-control mt-5" value="" placeholder="Enter the work's title...">
+        <span class="text-danger d-block" asp-validation-for="@Model.Work.Title"></span>
+
+        <input type="text" asp-for="@Model.Work.Description" class="form-control mt-3" value="" placeholder="Enter the work's description...">
+        <span class="text-danger d-block" asp-validation-for="@Model.Work.Description"></span>
+
+        <span>Category:</span>
+        <select class="form-select mt-3" asp-for="@Model.Work.SelectCategoryId" aria-label="Select Category">
+            <option selected disabled>Choose category</option>
+            @foreach (var item in Model.Categories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <br /><br />
+        <span>Choose Image:</span>
+        <input type="file" multiple asp-for="@Model.Work.UploadedImages" class="form-control mt-3" />
+
+        <div class="mt-2">
+        <button type="submit" class="btn btn-success">Create</button>
+        <a asp-controller="Work" asp-action="Index" class="btn btn-primary mx-2">Back</a>
+
+        </div>
+    </form>
+</div>

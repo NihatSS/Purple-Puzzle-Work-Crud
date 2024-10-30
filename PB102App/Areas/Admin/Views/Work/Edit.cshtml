@@ -1,0 +1,36 @@
+﻿@model WorkUpdateVM
+
+
+<div class="container mt-5">
+    <h3 class="text-center">Edit Work Details</h3>
+    <form asp-action="Edit" asp-route-id="@Model.Work.Id" method="post" enctype="multipart/form-data">
+        <input type="text" asp-for="@Model.Work.Title" class="form-control mt-5" value="@Model.Work.Title" placeholder="Enter work title...">
+        <span class="text-danger d-block" asp-validation-for="@Model.Work.Title"></span>
+
+        <input type="text" class="form-control mt-3" asp-for="@Model.Work.Description" value="@Model.Work.Description" placeholder="Enter work description...">
+        <span class="text-danger d-block" asp-validation-for="@Model.Work.Description"></span>
+
+        <span>Select Category:</span>
+        <select class="form-select mt-3" asp-for="@Model.Work.SelectCategoryId" aria-label="Select Category">
+            <option selected disabled>Choose category</option>
+            @foreach (var item in Model.Categories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <br />
+        @foreach (var item in Model.Work.Images)
+        {
+            <img src="~/assets/img/@item.Image" style="@(item.IsMain ? "border: 5px solid green" : "");margin-top:20px; width:200px; height:200px"/>
+        }
+        <br /><br />
+        <span>Choose Image:</span>
+        <input type="file" multiple  class="form-control mt-3" asp-for="@Model.Work.UploadedImages" />
+
+        <div class="mt-2">
+            <button type="submit" class="btn btn-success">Create</button>
+            <a asp-controller="Work" asp-action="Index" class="btn btn-primary">Back</a>
+        </div>
+        
+    </form>
+</div>
